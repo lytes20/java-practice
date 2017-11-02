@@ -1,46 +1,78 @@
+
+
 package com.company;
+import java.lang.Character;
+
+
 
 public class Main {
 
     public static void main(String[] args) {
-        int [] myArray = {1,4,4,5};
-        maxValueInArray(myArray);
+
+        // Some of my tests
+        char [] emptyCharArray = {};
+        char [] oneElementArray = {'a'};
+        char [] charArrayEndingWithCapital = {'a', 'K', 'c', 'D', 'E'};
+        char [] myCharArray = {'a', 'K', 'c', 'D', 'E', 'l'};
+
+        /*unhandled (untested tests) tests for now
+         * Array containing numbers
+         * Array with all Lower Case
+         * Array with all Upper
+          * */
+
+
+        lowerUpperCase(myCharArray);
+
     }
 
-    public static String reverse(String s){
-        int length = s.length();
+
+
+    public static char [] lowerUpperCase(char [] input){
+
+        /* i use i to loop through the whole array
+        * j is used to look ahead
+        * */
+
+        //empty array or 1 element array check
+        if(input.length <= 1)
+            return input;
 
 
 
-        char [] sCharaters = s.toCharArray();
-        char [] sReversedCharacters = new char[length];
 
-        for (int i = 0; i < length; i++){
-            sReversedCharacters[length-i-1] = sCharaters[i];
 
-        }
-        System.out.println(String.valueOf(sReversedCharacters));
-        return String.valueOf(sReversedCharacters);
-    }
+        for(int i = 0; i < input.length; i++){
 
-    public static void multiplicationTable(int max){
-        for(int i = 1; i <= max; i++){
-            for(int j = 1; j <= max; j++){
-                System.out.print(" "+ String.format("%d", j*i));
+            if(Character.isUpperCase(input[i])) {
+                for(int j = i; j < input.length; j++) {
+
+                    if(j == input.length - 1){
+                        if(Character.isLowerCase(input[j])) //handles last element being a lower case
+                            j = 0;
+                        else
+                            return input;
+                    }
+
+                    if(Character.isLowerCase(input[j])) {
+
+                        swap(input, i, j);
+
+                        break;
+                    }
+                }
             }
-            System.out.println();
 
         }
+
+        return input;
     }
 
-    public static int maxValueInArray(int [] inputArray){
-        int max = Integer.MIN_VALUE;
-        for(int i = 0; i < inputArray.length; i++){
-            if(inputArray[i] > max){
-                max = inputArray[i];
-            }
-        }
-        System.out.print(max);
-        return max;
+    // method to swap elements in the array
+    private static void swap(char[] input, int i, int j){
+        char temp = input[i];
+        input[i] = input[j];
+        input[j] = temp;
+
     }
 }
